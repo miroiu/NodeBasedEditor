@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:VEdit"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:Double x:Key="MediumTextSize">16</system:Double>
+    <system:Double x:Key="GraphTextSize">13</system:Double>
+    <system:Double x:Key="LeadTextSize">24</system:Double>
+
+    <Style x:Key="TextBlockHoverableStyle" TargetType="TextBlock">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="TextblockButtonStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockHoverableStyle}">
+        <Setter Property="FontSize" Value="{StaticResource MediumTextSize}" />
+    </Style>
+
+    <Style x:Key="GraphTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource GraphTextSize}" />
+    </Style>
+
+    <Style x:Key="LeadTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource LeadTextSize}" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+    </Style>
+</ResourceDictionary>

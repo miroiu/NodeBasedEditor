@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="VEdit.BreakpointsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VEdit"
+             xmlns:editor="clr-namespace:VEdit.Editor;assembly=VEdit.Editor"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid x:Name="Breakpoints">
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="boolToVis" />
+        </Grid.Resources>
+        <ListBox ItemsSource="{Binding Breakpoint.Breakpoints}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type editor:Breakpoint}">
+                    <TextBlock Text="{Binding Name}">
+                        <TextBlock.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding}" />
+                        </TextBlock.InputBindings>
+                        <TextBlock.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="View" Command="{Binding}" />
+                                <MenuItem Header="Delete" Command="{Binding DataContext.ClearBreakpointCommand, Source=Breakpoints}" />
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Style="{StaticResource TextButtonStyle}"
+                Visibility="{Binding HasBreakpoints, Converter={StaticResource boolToVis}}"
+                Content="🗑"
+                Foreground="Red"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Command="{Binding ClearCommand}"
+                Margin="15 5"/>
+    </Grid>
+</UserControl>

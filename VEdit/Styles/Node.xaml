@@ -1,0 +1,105 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:VEdit"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <SolidColorBrush x:Key="NodeBorderBrush" Color="Black" />
+    <SolidColorBrush x:Key="NodeBackgroundBrush" Color="#151515" />
+    <SolidColorBrush x:Key="NodeBorderBrushMouseOver" Color="#DB7F00" />
+    <SolidColorBrush x:Key="NodeBorderBrushSelection" Color="#DB7F00" />
+
+    <SolidColorBrush x:Key="BreakpointColor" Color="Red" />
+    <SolidColorBrush x:Key="BreakpointHitColor" Color="LawnGreen" />
+
+    <system:Double x:Key="BreakpointSize">20</system:Double>
+    
+    <Style x:Key="NodeBorderStyle" TargetType="Border">
+        <Setter Property="MinWidth" Value="96" />
+        <Setter Property="BorderBrush" Value="{StaticResource NodeBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Background" Value="{StaticResource NodeBackgroundBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource NodeBorderBrushMouseOver}" />
+            </Trigger>
+            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                <Setter Property="MinWidth" Value="100" />
+                <Setter Property="BorderBrush" Value="{StaticResource NodeBorderBrushSelection}" />
+                <Setter Property="BorderThickness" Value="3" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="CornerRadius" Value="6" />
+                <Setter Property="Background" Value="{StaticResource NodeBackgroundBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="NodeHeaderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="5 5 0 0"/>
+        <Setter Property="Background" >
+            <Setter.Value>
+                <LinearGradientBrush>
+                    <GradientStop Color="#34495E" Offset="0" />
+                    <GradientStop Color="#22313F" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsCompact}" Value="True">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="NodeCompactStyle" TargetType="Border">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsCompact}" Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="NodeName" TargetType="TextBlock" BasedOn="{StaticResource GraphTextStyle}">
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="Margin" Value="3" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="NodeCompactName" TargetType="TextBlock" BasedOn="{StaticResource GraphTextStyle}">
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="Margin" Value="3" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="ErrorBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="CornerRadius" Value="0 0 3 3" />
+    </Style>
+
+    <Style x:Key="NodeErrorMessage" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="BreakpointStyle" TargetType="Shape">
+        <Setter Property="Width" Value="{StaticResource BreakpointSize}" />
+        <Setter Property="Height" Value="{StaticResource BreakpointSize}" />
+        <Setter Property="Margin" Value="-10" />
+        <Setter Property="Stroke" Value="Black" />
+        <Setter Property="Fill" Value="{StaticResource BreakpointColor}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="ToolTip" Value="Breakpoint" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsBreakpointHit}" Value="True">
+                <Setter Property="Fill" Value="{StaticResource BreakpointHitColor}" />
+                <Setter Property="ToolTip" Value="Breakpoint hit !" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:VEdit"
+                    xmlns:main="clr-namespace:VEdit"
+                    xmlns:editor="clr-namespace:VEdit.Editor;assembly=VEdit.Editor"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+
+    <DataTemplate x:Key="EmptyDataTemplate">
+    </DataTemplate>
+
+    <DataTemplate x:Key="BooleanDecoratorTemplate" DataType="{x:Type editor:Pin}">
+        <CheckBox IsChecked="{Binding DefaultValue}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="IntegerDecoratorTemplate" DataType="{x:Type editor:Pin}">
+        <TextBox Text="{Binding DefaultValue, Mode=OneWay}" Style="{StaticResource DecoratorTextBox}">
+            <i:Interaction.Behaviors>
+                <main:IntegerBehaviour Output="{Binding DefaultValue, Mode=TwoWay}" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DoubleDecoratorTemplate" DataType="{x:Type editor:Pin}">
+        <TextBox Text="{Binding DefaultValue, Mode=OneWay}" Style="{StaticResource DecoratorTextBox}">
+            <i:Interaction.Behaviors>
+                <main:DoubleBehaviour Output="{Binding DefaultValue, Mode=TwoWay}" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FloatDecoratorTemplate" DataType="{x:Type editor:Pin}">
+        <TextBox Text="{Binding DefaultValue, Mode=OneWay}" Style="{StaticResource DecoratorTextBox}">
+            <i:Interaction.Behaviors>
+                <main:FloatBehaviour Output="{Binding DefaultValue, Mode=TwoWay}" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ByteDecoratorTemplate" DataType="{x:Type editor:Pin}">
+        <TextBox Text="{Binding DefaultValue, Mode=OneWay}" Style="{StaticResource DecoratorTextBox}">
+            <i:Interaction.Behaviors>
+                <main:ByteBehaviour Output="{Binding DefaultValue, Mode=TwoWay}" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="StringDecoratorTemplate" DataType="{x:Type editor:Pin}">
+        <TextBox Text="{Binding DefaultValue, Mode=TwoWay}" Style="{StaticResource DecoratorTextBox}" />
+    </DataTemplate>
+
+    <Style TargetType="ContentControl" x:Key="DecoratorsStyle">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Type}" Value="{x:Type sys:Boolean}">
+                <Setter Property="ContentTemplate" Value="{StaticResource BooleanDecoratorTemplate}" />
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Type}" Value="{x:Type sys:Int32}">
+                <Setter Property="ContentTemplate" Value="{StaticResource IntegerDecoratorTemplate}" />
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Type}" Value="{x:Type sys:Single}">
+                <Setter Property="ContentTemplate" Value="{StaticResource FloatDecoratorTemplate}" />
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Type}" Value="{x:Type sys:Double}">
+                <Setter Property="ContentTemplate" Value="{StaticResource DoubleDecoratorTemplate}" />
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Type}" Value="{x:Type sys:Byte}">
+                <Setter Property="ContentTemplate" Value="{StaticResource ByteDecoratorTemplate}" />
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Type}" Value="{x:Type sys:String}">
+                <Setter Property="ContentTemplate" Value="{StaticResource StringDecoratorTemplate}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

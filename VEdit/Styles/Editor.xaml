@@ -1,0 +1,109 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:VEdit"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls">
+
+    <Color x:Key="RectangleSelectionColor" R="99" G="133" B="199" A="255" />
+    <SolidColorBrush x:Key="SelectionRectangleBrush" Color="{StaticResource RectangleSelectionColor}" />
+    <system:Double x:Key="SelectionRectangleStrokeThickness">2</system:Double>
+    <system:Double x:Key="LinkStrokeThickness">2</system:Double>
+    <system:Double x:Key="LinkHighlightedStrokeThickness">3</system:Double>
+    <system:Double x:Key="TempLinkStrokeThickness">3</system:Double>
+    <system:Double x:Key="TabItemHeight">30</system:Double>
+    <system:Double x:Key="OutputWindowHeight">200</system:Double>
+    
+
+    <SolidColorBrush x:Key="CommentBackgroundBrush" Color="#6C7A89" Opacity="0.3" />
+    <SolidColorBrush x:Key="CommentHeaderBrush" Color="#1E1F1E" />
+
+    <Style TargetType="Shape" x:Key="SelectionRectangleStyle">
+        <Setter Property="Fill" Value="Transparent" />
+        <Setter Property="Stroke" Value="{StaticResource SelectionRectangleBrush}" />
+        <Setter Property="StrokeThickness" Value="{StaticResource SelectionRectangleStrokeThickness}" />
+    </Style>
+
+    <Style TargetType="Line" x:Key="TempLinkStyle">
+        <Setter Property="Stroke" Value="{Binding Color}" />
+        <Setter Property="StrokeThickness" Value="{StaticResource TempLinkStrokeThickness}" />
+        <Setter Property="StrokeDashArray" Value="2, 4" />
+    </Style>
+
+    <Style TargetType="Path" x:Key="LinkStyle">
+        <Setter Property="Stroke" Value="{Binding Color}" />
+        <Setter Property="StrokeThickness" Value="{StaticResource LinkStrokeThickness}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="StrokeThickness" Value="{StaticResource LinkHighlightedStrokeThickness}" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <BlurEffect Radius="2" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="CommentContentStyle" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource CommentBackgroundBrush}" />
+        <Setter Property="MinHeight" Value="10" />
+    </Style>
+
+    <Style x:Key="CommentHeaderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource CommentHeaderBrush}" />
+    </Style>
+
+    <Style x:Key="CommentTextHeaderStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="7 0 7 3" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Foreground" Value="#9C9D9C" />
+    </Style>
+
+    <Style TargetType="mahApps:MetroTabItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="mahApps:MetroTabItem">
+                    <Border Name="Panel" Background="Transparent" Height="{StaticResource TabItemHeight}">
+                        <ContentPresenter ContentSource="Header" 
+                                          Margin="10 2"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Panel" Property="Background" Value="#252525" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Grid" x:Key="BottomBarStyle">
+        <Setter Property="Panel.ZIndex" Value="100" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="#1C1C1C" />
+    </Style>
+
+    <Style TargetType="Button" x:Key="OutputToggleStyle" BasedOn="{StaticResource TextButtonStyle}">
+        <Setter Property="Margin" Value="10 7" /> 
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ShowOutput}" Value="True">
+                <Setter Property="Content" Value="▼" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ShowOutput}" Value="False">
+                <Setter Property="Content" Value="▲" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Border" x:Key="OutputWindowStyle" >
+        <Setter Property="Height" Value="{StaticResource OutputWindowHeight}" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="0 1 0 0"/>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,42 @@
+﻿<Application x:Class="VEdit.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:VEdit"
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/mahapps.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/Styles/Textblocks.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/Styles/Textboxes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/Styles/Buttons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/Styles/Checkboxes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/Styles/Node.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/Styles/Pin.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/Styles/Editor.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/Styles/NodeList.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VEdit;component/DataTemplates/Decorators.xaml" />
+                
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="BlackColorBrush" Color="Black" Opacity=".5"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource {x:Type dragablz:TabablzControl}}">
+                <Setter Property="ItemContainerStyle" Value="{StaticResource MahAppsTrapezoidDragableTabItemStyle}" />
+                <Setter Property="AdjacentHeaderItemOffset" Value="-12" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

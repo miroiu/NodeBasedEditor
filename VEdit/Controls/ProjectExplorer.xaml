@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="VEdit.Controls.ProjectExplorer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VEdit.Controls"
+             xmlns:converters="clr-namespace:VEdit.Converters"
+             xmlns:vm="clr-namespace:VEdit.UI;assembly=VEdit.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Projects}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Expander Header="{Binding Root.Name}" DataContext="{Binding}" IsExpanded="True">
+                        <Expander.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="_Add">
+                                    <MenuItem Header="_Folder" Command="{Binding AddFolderCommand}" CommandParameter="{Binding Root}" />
+                                    <MenuItem Header="_Existing Item" Command="{Binding AddExistingItemCommand}" CommandParameter="{Binding Root}" />
+                                    <Separator />
+                                    <MenuItem Header="_Image Graph" Command="{Binding AddImageGraphCommand}" CommandParameter="{Binding Root}" />
+                                    <MenuItem Header="_Text Graph" Command="{Binding AddTextGraphCommand}" CommandParameter="{Binding Root}" />
+                                    <MenuItem Header="F_unction Graph" Command="{Binding AddFunctionGraphCommand}" CommandParameter="{Binding Root}" />
+                                    <MenuItem Header="T_ext File" Command="{Binding AddTextFileCommand}" CommandParameter="{Binding Root}" />
+                                </MenuItem>
+                                <MenuItem Header="_Rename" />
+                                <Separator />
+                                <MenuItem Header="_Close" Command="{Binding CloseProjectCommand}" CommandParameter="{Binding}" />
+                            </ContextMenu>
+                        </Expander.ContextMenu>
+                        <TreeView ItemsSource="{Binding Root.Children}" x:Name="project">
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="{x:Type TreeViewItem}">
+                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                                </Style>
+                            </TreeView.ItemContainerStyle>
+                            <TreeView.Resources>
+                                <Style x:Key="IconStyle" TargetType="Image">
+                                    <Setter Property="Margin" Value="0 0 5 0" />
+                                    <Setter Property="Width" Value="14" />
+                                </Style>
+                                <BitmapImage x:Key="DirectoryIcon" UriSource="/Resources/Icons/directory.png" />
+                                <BitmapImage x:Key="DirectoryExpandedIcon" UriSource="/Resources/Icons/directory-open.png" />
+                                <converters:FileTypeToIconConverter x:Key="IconConverter" />
+                                <HierarchicalDataTemplate DataType="{x:Type vm:ProjectDirectory}" ItemsSource="{Binding Children}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Style="{StaticResource IconStyle}" x:Name="imgFolderIcon" Source="{StaticResource DirectoryIcon}" />
+                                        <TextBlock Text="{Binding Name}">
+                                            <TextBlock.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="Add">
+                                                        <MenuItem Header="Folder"
+                                                              Command="{Binding DataContext.AddFolderCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                        <MenuItem Header="Existing Item"
+                                                              Command="{Binding DataContext.AddExistingItemCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                        <Separator/>
+                                                        <MenuItem Header="Image Graph"
+                                                              Command="{Binding DataContext.AddImageGraphCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                        <MenuItem Header="Text Graph"
+                                                              Command="{Binding DataContext.AddTextGraphCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                        <MenuItem Header="Function Graph"
+                                                              Command="{Binding DataContext.AddFunctionGraphCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                        <MenuItem Header="Text File"
+                                                              Command="{Binding DataContext.AddTextFileCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                    </MenuItem>
+                                                    <MenuItem Header="Rename"
+                                                              Command="{Binding DataContext.RenameCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                    <MenuItem Header="Delete"
+                                                              Command="{Binding DataContext.DeleteCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                </ContextMenu>
+                                            </TextBlock.ContextMenu>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <HierarchicalDataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+                                            <Setter TargetName="imgFolderIcon" Property="Source" Value="{StaticResource DirectoryExpandedIcon}" />
+                                        </DataTrigger>
+                                    </HierarchicalDataTemplate.Triggers>
+                                </HierarchicalDataTemplate>
+                                <DataTemplate DataType="{x:Type vm:ProjectFile}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Style="{StaticResource IconStyle}" Source="{Binding Converter={StaticResource IconConverter}}" />
+                                        <TextBlock Text="{Binding Name}" >
+                                            <TextBlock.InputBindings>
+                                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DataContext.OpenFileCommand, Source={x:Reference project}}" CommandParameter="{Binding}" />
+                                            </TextBlock.InputBindings>
+                                            <TextBlock.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="Open"
+                                                              Command="{Binding DataContext.OpenFileCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                    <MenuItem Header="Rename"
+                                                              Command="{Binding DataContext.RenameCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                    <MenuItem Header="Delete"
+                                                              Command="{Binding DataContext.DeleteCommand, Source={x:Reference project}}"
+                                                              CommandParameter="{Binding}"/>
+                                                </ContextMenu>
+                                            </TextBlock.ContextMenu>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </TreeView.Resources>
+                        </TreeView>
+                    </Expander>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

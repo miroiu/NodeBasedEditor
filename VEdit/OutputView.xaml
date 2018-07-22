@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="VEdit.OutputView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VEdit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:global="clr-namespace:VEdit.Common;assembly=VEdit.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="boolToVis" />
+            <Style x:Key="OutputLogStyle" TargetType="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Type}" Value="{x:Static global:OutputType.Error}">
+                        <Setter Property="Foreground" Value="Red" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Type}" Value="{x:Static global:OutputType.Message}">
+                        <Setter Property="Foreground" Value="White" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Type}" Value="{x:Static global:OutputType.Warning}">
+                        <Setter Property="Foreground" Value="Orange" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Type}" Value="{x:Static global:OutputType.Info}">
+                        <Setter Property="Foreground" Value="DodgerBlue" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <ListBox ItemsSource="{Binding Output.Logs}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.IsDeferredScrollingEnabled="True"
+                 VirtualizingPanel.IsVirtualizing="True"
+                 VirtualizingPanel.VirtualizationMode="Recycling">
+            <ListBox.Resources>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                             Color="Transparent"/>
+                    </Style.Resources>
+                </Style>
+            </ListBox.Resources>
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type global:OutputLog}">
+                    <TextBlock Style="{StaticResource OutputLogStyle}"
+                                   Text="{Binding Name}">
+                        <TextBlock.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding}" />
+                        </TextBlock.InputBindings>
+                        <TextBlock.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="View" Command="{Binding}" />
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <!--<i:Interaction.Behaviors>
+                <local:AutoScrollBehaviour />
+            </i:Interaction.Behaviors>-->
+        </ListBox>
+        <Button Style="{StaticResource TextButtonStyle}"
+                Visibility="{Binding HasLogs, Converter={StaticResource boolToVis}}"
+                Content="🗑"
+                Foreground="Red"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Command="{Binding ClearCommand}"
+                Margin="15 5"/>
+    </Grid>
+</UserControl>

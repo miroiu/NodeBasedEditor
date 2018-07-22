@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="VEdit.Controls.TempLinkView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VEdit.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Line Style="{StaticResource TempLinkStyle}" 
+          IsHitTestVisible="False"
+        X1="{Binding StartX}" X2="{Binding EndX}"
+        Y1="{Binding StartY}" Y2="{Binding EndY}" />
+</UserControl>
