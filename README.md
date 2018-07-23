@@ -8,6 +8,8 @@
  It features an infinite canvas where you can place nodes and connect their input and output pins to create logically connected sequences of actions.
  It pretty much functions like a procedural programming language, where you chain function calls starting from an entry point. Each function has its own entry point (input) and exit point (output) and can call other functions and declare and use variables to store temporary data.
  
+ The UI code is written in WPF using the MVVM pattern. The theme and window and dialog controls come from the MahApps library. 
+ 
  ![](https://i.imgur.com/UAcIlWr.png)
  
  ![](https://i.imgur.com/i4HrPjt.png)
