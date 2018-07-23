@@ -1,11 +1,12 @@
  # **Disclaimer** 
- ## This project is not fully functional and will be completely redesigned and rewritten.
- ## This project is not intended for personal use as it is made for learning purposes.
+ This project is not fully functional and will be completely redesigned and rewritten.
+ This project is not intended for personal use as it is made for learning purposes.
  
  # Introduction
  
  Visual Programming Editor is a node based editor that tries to mimic the way you write code in Unreal Engine's 4 Blueprints editor.
  It features an infinite canvas where you can place nodes and connect their input and output pins to create logically connected sequences of actions.
+ It pretty much functions like a procedural programming language, where you chain function calls starting from an entry point. Each function has its own entry point (input) and exit point (output) and can call other functions and declare and use variables to store temporary data.
  
  ![](https://i.imgur.com/UAcIlWr.png)
  
@@ -17,6 +18,8 @@
  
  ## The Start Page
  When the application is first launched, it will display the Start Page which has options for creating a new project or opening an existing one. It also displays the most recent used projects.
+ 
+ ![](https://i.imgur.com/u07Z3xv.png)
  
  ## The Project Explorer
  Here you can add, remove or rename files or folders by right clicking on them.
