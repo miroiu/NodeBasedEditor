@@ -17,7 +17,7 @@ namespace VEdit
             return node as T;
         }
         
-        public static Point GetInsideLocationRelativeToParent(this FrameworkElement child, FrameworkElement parent)
+        public static Point GetCenterLocationInsideParent(this FrameworkElement child, FrameworkElement parent)
         {
             var mid = new Point(child.ActualWidth / 2, child.ActualHeight / 2);
             return child.TranslatePoint(mid, parent);

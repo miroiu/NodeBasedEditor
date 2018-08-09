@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interactivity;
+using VEdit.Controls;
 using VEdit.Editor;
 using VEdit.Element;
 
@@ -28,9 +29,12 @@ namespace VEdit
         public static readonly DependencyProperty UpdateSizeProperty = DependencyProperty.Register(nameof(UpdateSize),
             typeof(bool), typeof(ElementBehaviour), new PropertyMetadata(true));
 
+        private BlackboardView _parent;
+
         protected override void OnAttached()
         {
             State = new DefaultState(this);
+            _parent = AssociatedObject.FindParentOfType<BlackboardView>();
 
             AssociatedObject.MouseLeftButtonDown += OnMouseLeftButtonDown;
             AssociatedObject.MouseLeftButtonUp += OnMouseLeftButtonUp;
@@ -52,7 +56,7 @@ namespace VEdit
 
         private void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var position = GetMousePositionFromMainWindow(e);
+            var position = GetMousePositionRelativeToBlackboard(e);
             State.OnRightMouseButtonUp(position);
         }
 
@@ -67,7 +71,7 @@ namespace VEdit
 
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var position = GetMousePositionFromMainWindow(e);
+            var position = GetMousePositionRelativeToBlackboard(e);
             State.OnLeftMouseButtonDown(position);
 
             ((FrameworkElement)sender).CaptureMouse();
@@ -75,15 +79,11 @@ namespace VEdit
             e.Handled = true;
         }
 
-        private Point GetMousePositionFromMainWindow(MouseEventArgs args)
-        {
-            var parent = Application.Current.MainWindow;
-            return args.GetPosition(parent);
-        }
+        private Point GetMousePositionRelativeToBlackboard(MouseEventArgs args) => args.GetPosition(_parent);
 
         private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var position = GetMousePositionFromMainWindow(e);
+            var position = GetMousePositionRelativeToBlackboard(e);
             State.OnLeftMouseButtonUp(position);
             ((FrameworkElement)sender).ReleaseMouseCapture();
         }
@@ -92,7 +92,7 @@ namespace VEdit
         {
             var element = (UIElement)sender;
             if (!element.IsMouseCaptured) return;
-            var position = GetMousePositionFromMainWindow(e);
+            var position = GetMousePositionRelativeToBlackboard(e);
             State.OnMouseMove(position);
         }
     }

@@ -42,7 +42,7 @@ namespace VEdit
 
             await Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() =>
             {
-                _relativeLocation = AssociatedObject.GetInsideLocationRelativeToParent(_parent);
+                _relativeLocation = AssociatedObject.GetCenterLocationInsideParent(_parent);
                 CalculateRelativePosition();
             }));
         }
@@ -55,7 +55,7 @@ namespace VEdit
 
         private void OnLayoutUpdated(object sender, EventArgs e)
         {
-            var newPos = AssociatedObject.GetInsideLocationRelativeToParent(_parent);
+            var newPos = AssociatedObject.GetCenterLocationInsideParent(_parent);
             if (newPos != _relativeLocation)
             {
                 _relativeLocation = newPos;
