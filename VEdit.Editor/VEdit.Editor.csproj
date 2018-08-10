@@ -45,7 +45,7 @@
     <Compile Include="ActionsDatabase\ActionsDatabase.cs" />
     <Compile Include="Blackboard\BlackboardElement.cs" />
     <Compile Include="Blackboard\Blackboard.cs" />
-    <Compile Include="Blackboard\Comment.cs" />
+    <Compile Include="Graph\Comment.cs" />
     <Compile Include="Breakpoint.cs" />
     <Compile Include="IImage.cs" />
     <Compile Include="Nodes\Core\BranchNode.cs" />
@@ -99,7 +99,7 @@
     <Compile Include="Nodes\Node.cs" />
     <Compile Include="Nodes\Pin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Blackboard\SelectionRectangle.cs" />
+    <Compile Include="Graph\SelectionRectangle.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VEdit.Common\VEdit.Common.csproj">
