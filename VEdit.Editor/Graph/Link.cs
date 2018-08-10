@@ -1,13 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using VEdit.Common;
 
 namespace VEdit.Editor
 {
-    public class Link : BlackboardElement
+    public class Link : BlackboardElement, ISaveLoad
     {
-        private ObservableCollection<SplitNode> _splits;
+        private readonly ObservableCollection<SplitNode> _splits;
 
-        public Link(Graph graph, Pin input, Pin output) : base(graph)
+        public event Action Loaded;
+
+        public Link(Graph graph, Pin input, Pin output) : base(graph, graph.ServiceProvider)
         {
             _splits = new ObservableCollection<SplitNode>();
             Splits = new ReadOnlyObservableCollection<SplitNode>(_splits);
@@ -34,7 +37,7 @@ namespace VEdit.Editor
         // Don't notify UI
         public override double Y { get; set; }
 
-        public override void Save(IArchive archive)
+        public void Save(IArchive archive)
         {
             var inputArc = ServiceProvider.Get<IArchive>();
             archive.Write(nameof(Input), inputArc);
@@ -45,7 +48,7 @@ namespace VEdit.Editor
             Output.Save(outputArc);
         }
 
-        public override void Load(IArchive archive)
+        public void Load(IArchive archive)
         {
             var input = archive.Read<Archive>(nameof(Input));
             Input.Load(input);

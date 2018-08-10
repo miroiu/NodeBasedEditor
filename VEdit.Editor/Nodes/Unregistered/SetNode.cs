@@ -38,7 +38,7 @@ namespace VEdit.Editor
 
         private void GoToVariable()
         {
-            Variable.Graph.JumpToNode(Variable);
+            Variable.Graph.Focus(Variable);
         }
 
         private void OnRenamed()

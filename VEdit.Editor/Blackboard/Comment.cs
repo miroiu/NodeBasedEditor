@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VEdit.Common;
 
 namespace VEdit.Editor
 {
-    public class Comment : BlackboardElement
+    public class Comment : BlackboardElement, ISaveLoad
     {
         private Graph _graph;
 
-        public Comment(Graph graph) : base(graph)
+        public event Action Loaded;
+
+        public Comment(Graph graph) : base(graph, graph.ServiceProvider)
         {
             _graph = graph;
             var cmdProvider = ServiceProvider.Get<ICommandProvider>();
@@ -55,9 +58,33 @@ namespace VEdit.Editor
             }
         }
 
-        private IEnumerable<IElement> GetChildren()
+        private IEnumerable<IBlackboardElement> GetChildren()
         {
             return Parent.Elements.GetElementsInBounds(X, Y, Width, Height).Where(e => !(e is Comment));
+        }
+
+        public void Save(IArchive archive)
+        {
+            archive.Write(nameof(X), X);
+            archive.Write(nameof(Y), Y);
+
+            archive.Write(nameof(Width), Width);
+            archive.Write(nameof(Height), Height);
+
+            archive.Write(nameof(Name), Name);
+            archive.Write(nameof(Description), Description);
+        }
+
+        public void Load(IArchive archive)
+        {
+            X = archive.Read<double>(nameof(X));
+            Y = archive.Read<double>(nameof(Y));
+
+            Width = archive.Read<double>(nameof(Width));
+            Height = archive.Read<double>(nameof(Height));
+
+            Name = archive.Read<string>(nameof(Name));
+            Description = archive.Read<string>(nameof(Description));
         }
     }
 }

@@ -1,28 +1,29 @@
 ﻿using System.Collections.ObjectModel;
-using VEdit.Common;
 
 namespace VEdit.Editor
 {
+    public enum ZoomDirection
+    {
+        In,
+        Out
+    }
+
     public interface IBlackboard
     {
-        ISelectionService<IElement> SelectionService { get; }
-        ReadOnlyObservableCollection<IElement> Elements { get; }
-        IServiceProvider ServiceProvider { get; }
+        ISelectionService<IBlackboardElement> SelectionService { get; }
+        ReadOnlyObservableCollection<IBlackboardElement> Elements { get; }
 
-        double X { get; set; }
-        double Y { get; set; }
-
-        double Zoom { get; }
+        // Centers the view at the element's coordinates
+        void Focus(IBlackboardElement element);
+        void Pan(double deltaX, double deltaY);
+        void Zoom(ZoomDirection direction, double centerX = 0, double centerY = 0);
+        
+        double ZoomFactor { get; }
 
         double Width { get; set; }
         double Height { get; set; }
 
-        void AddElement(IElement element);
-        void RemoveElement(IElement element);
-
-        ICommand DeleteSelectionCommand { get; }
-
-        void ZoomIn(double centerX = 0, double centerY = 0);
-        void ZoomOut(double centerX = 0, double centerY = 0);
+        void AddElement(IBlackboardElement element);
+        void RemoveElement(IBlackboardElement element);
     }
 }

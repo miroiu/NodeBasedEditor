@@ -2,7 +2,7 @@
 {
     public class SelectionRectangle : BlackboardElement
     {
-        public SelectionRectangle(IBlackboard blackboard) : base(blackboard)
+        public SelectionRectangle(Blackboard blackboard) : base(blackboard, blackboard.ServiceProvider)
         {
         }
 

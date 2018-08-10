@@ -21,9 +21,7 @@
         </ToolBar>
         <local:BlackboardView DataContext="{Binding Graph}" Grid.Row="1">
             <local:BlackboardView.LayoutTransform>
-                <ScaleTransform
-                        ScaleX="{Binding Zoom}"
-                        ScaleY="{Binding Zoom}" />
+                <ScaleTransform ScaleX="{Binding ZoomFactor}" ScaleY="{Binding ZoomFactor}" />
             </local:BlackboardView.LayoutTransform>
             <i:Interaction.Behaviors>
                 <root:BlackboardBehaviour Blackboard="{Binding}" />

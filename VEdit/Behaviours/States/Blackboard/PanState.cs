@@ -38,8 +38,7 @@ namespace VEdit.Blackboard
             {
                 var blackboard = Behaviour.Blackboard;
 
-                blackboard.X += delta.X;
-                blackboard.Y += delta.Y;
+                blackboard.Pan(delta.X, delta.Y);
 
                 _clickOrigin = position;
             }

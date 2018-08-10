@@ -20,7 +20,7 @@ namespace VEdit.Editor
         private IActionsDatabase _actionsDatabase;
         private Graph _graph;
 
-        public ActionList(Graph graph, IServiceProvider serviceProvider) : base(graph)
+        public ActionList(Graph graph, IServiceProvider serviceProvider) : base(graph, serviceProvider)
         {
             _serviceProvider = serviceProvider;
             _graph = graph;

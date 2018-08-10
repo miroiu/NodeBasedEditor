@@ -25,7 +25,7 @@ namespace Ninject.Extensions.VEdit
             Bind<IBreakpointManager>().To<BreakpointManager>().InSingletonScope();
 
             // No singletons
-            Bind<ISelectionService<IElement>>().To<ElementSelectionService>();
+            Bind<ISelectionService<IBlackboardElement>>().To<ElementSelectionService>();
             Bind<IArchive>().To<Archive>();
             Bind<IImage>().To<ImageAdapter>();
 

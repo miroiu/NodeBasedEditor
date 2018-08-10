@@ -157,7 +157,7 @@ namespace VEdit.Editor
             var links = Graph.GetLinks(this);
             var nodes = links.Select(l => IsInput ? l.Output.Node : l.Input.Node);
 
-            Graph.JumpToNode(nodes.First());
+            Graph.Focus(nodes.First());
         }
 
         public void ToggleWatch()
@@ -229,11 +229,6 @@ namespace VEdit.Editor
                     DefaultValue = archive.Read(nameof(DefaultValue), DefaultValue?.GetType());
                 }
             }
-        }
-
-        private void OnLoaded()
-        {
-            Loaded?.Invoke();
         }
 
         #endregion

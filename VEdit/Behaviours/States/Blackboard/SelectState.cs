@@ -11,7 +11,7 @@ namespace VEdit.Blackboard
 
         public SelectState(BlackboardBehaviour blackboard) : base(blackboard)
         {
-            _selectionRectangle = new SelectionRectangle(blackboard.Blackboard);
+            _selectionRectangle = new SelectionRectangle((Editor.Blackboard)blackboard.Blackboard);
         }
 
         public override void OnLeftMouseButtonDown(Point position)

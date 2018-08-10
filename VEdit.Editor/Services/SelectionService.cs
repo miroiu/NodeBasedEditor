@@ -21,9 +21,9 @@ namespace VEdit.Editor
             }
         }
 
-        public static IEnumerable<T> GetElementsInBounds<T>(this IEnumerable<T> elements, double x, double y, double width, double height) where T: IElement
+        public static IEnumerable<T> GetElementsInBounds<T>(this IEnumerable<T> elements, double x, double y, double width, double height) where T: IBlackboardElement
         {
-            foreach (IElement elem in elements)
+            foreach (IBlackboardElement elem in elements)
             {
                 if (elem.X < x + width &&
                     elem.X + elem.Width > x &&
@@ -36,13 +36,13 @@ namespace VEdit.Editor
         }
     }
 
-    public class ElementSelectionService : ISelectionService<IElement>
+    public class ElementSelectionService : ISelectionService<IBlackboardElement>
     {
-        private List<IElement> _selected = new List<IElement>();
+        private List<IBlackboardElement> _selected = new List<IBlackboardElement>();
 
-        public IEnumerable<IElement> Selection => _selected;
+        public IEnumerable<IBlackboardElement> Selection => _selected;
 
-        public void Select(IElement selectable)
+        public void Select(IBlackboardElement selectable)
         {
             selectable.IsSelected = true;
 
@@ -52,7 +52,7 @@ namespace VEdit.Editor
             }
         }
 
-        public void Unselect(IElement selectable)
+        public void Unselect(IBlackboardElement selectable)
         {
             if (_selected.Contains(selectable))
             {

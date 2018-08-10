@@ -14,7 +14,7 @@ namespace VEdit.Blackboard
         public DrawTempLinkState(BlackboardBehaviour blackboard, Pin pin) : base(blackboard)
         {
             Pin = pin;
-            _link = new TempLink(blackboard.Blackboard, pin.Color, pin.X, pin.Y);
+            _link = new TempLink((Editor.Blackboard)blackboard.Blackboard, pin.Color, pin.X, pin.Y);
             blackboard.Blackboard.AddElement(_link);
         }
 

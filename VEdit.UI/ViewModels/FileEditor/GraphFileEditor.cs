@@ -76,8 +76,8 @@ namespace VEdit.UI
                 return false;
             }
 
-            JumpToInputCommand = _cmdProvider.Create(() => Graph.JumpToNode(Graph.Entry));
-            JumpToOutputCommand = _cmdProvider.Create(() => Graph.JumpToNode(Graph.Exit));
+            JumpToInputCommand = _cmdProvider.Create(() => Graph.Focus(Graph.Entry));
+            JumpToOutputCommand = _cmdProvider.Create(() => Graph.Focus(Graph.Exit));
 
             return true;
         }

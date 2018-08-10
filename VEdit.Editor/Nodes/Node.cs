@@ -7,7 +7,7 @@ using VEdit.Execution;
 
 namespace VEdit.Editor
 {
-    public abstract class Node : BlackboardElement
+    public abstract class Node : BlackboardElement, ISaveLoad
     {
         public ReadOnlyObservableCollection<Pin> Input { get; }
         public ReadOnlyObservableCollection<Pin> Output { get; }
@@ -85,7 +85,9 @@ namespace VEdit.Editor
 
         private IBreakpointManager _breakpointManager;
 
-        public Node(Graph root, Guid templateId) : base(root)
+        public event Action Loaded;
+
+        public Node(Graph root, Guid templateId) : base(root, root.ServiceProvider)
         {
             Id = Guid.NewGuid();
             TemplateId = templateId;
@@ -250,9 +252,16 @@ namespace VEdit.Editor
 
         #region Serialization
 
-        public override void Save(IArchive archive)
+        public virtual void Save(IArchive archive)
         {
-            base.Save(archive);
+            archive.Write(nameof(X), X);
+            archive.Write(nameof(Y), Y);
+
+            archive.Write(nameof(Width), Width);
+            archive.Write(nameof(Height), Height);
+
+            archive.Write(nameof(Name), Name);
+            archive.Write(nameof(Description), Description);
 
             archive.Write(nameof(Id), Id);
             archive.Write(nameof(TemplateId), TemplateId);
@@ -262,17 +271,22 @@ namespace VEdit.Editor
             archive.Write(nameof(Output), SavePins(Output));
         }
 
-        public override void Load(IArchive archive)
+        public virtual void Load(IArchive archive)
         {
-            base.Load(archive);
+            X = archive.Read<double>(nameof(X));
+            Y = archive.Read<double>(nameof(Y));
+
+            Width = archive.Read<double>(nameof(Width));
+            Height = archive.Read<double>(nameof(Height));
+
+            Name = archive.Read<string>(nameof(Name));
+            Description = archive.Read<string>(nameof(Description));
 
             Id = archive.Read<Guid>(nameof(Id));
             HasBreakpoint = archive.Read<bool>(nameof(HasBreakpoint));
 
             LoadPins(archive.Read<Archive>(nameof(Input)), true);
             LoadPins(archive.Read<Archive>(nameof(Output)), false);
-
-            OnLoaded();
         }
 
         public virtual IArchive SavePins(IEnumerable<Pin> pins)

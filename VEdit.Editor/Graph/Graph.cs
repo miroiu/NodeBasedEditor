@@ -6,7 +6,7 @@ using VEdit.Execution;
 
 namespace VEdit.Editor
 {
-    public abstract class Graph : Blackboard
+    public abstract class Graph : Blackboard, ISaveLoad
     {
         const string CopyPasteFormat = "VEdit.Editor.CopyPasteFormat";
 
@@ -87,12 +87,6 @@ namespace VEdit.Editor
                 RemoveElement(node);
                 _nodes.Remove(node);
             }
-        }
-
-        public void JumpToNode(Node node)
-        {
-            X -= node.X - Width / 2 + node.Width / 2;
-            Y -= node.Y - Height / 2 + node.Height / 2;
         }
 
         #endregion
@@ -341,7 +335,7 @@ namespace VEdit.Editor
             //var links = GetLinks(SelectedNodes);
         }
 
-        internal override void DeleteSelection()
+        internal void DeleteSelection()
         {
             var selection = SelectionService.Selection;
             var nodes = SelectedNodes.ToList();
@@ -356,9 +350,10 @@ namespace VEdit.Editor
 
         #region Serialization
 
-        public override void Save(IArchive archive)
+        public void Save(IArchive archive)
         {
-            base.Save(archive);
+            archive.Write(nameof(Name), Name);
+            archive.Write(nameof(Description), Description);
 
             archive.Write(nameof(Id), Id);
 
@@ -367,15 +362,25 @@ namespace VEdit.Editor
             archive.Write(nameof(Comments), SaveComments(Comments));
         }
 
-        public override void Load(IArchive archive)
+        public event Action Loaded;
+
+        private void OnLoaded()
         {
-            base.Load(archive);
+            Loaded?.Invoke();
+        }
+
+        public void Load(IArchive archive)
+        {
+            Name = archive.Read<string>(nameof(Name));
+            Description = archive.Read<string>(nameof(Description));
 
             Id = archive.Read<Guid>(nameof(Id));
 
             LoadNodes(archive.Read<Archive>(nameof(Nodes))).Run();
             LoadLinks(archive.Read<Archive>(nameof(Links)));
             LoadComments(archive.Read<Archive>(nameof(Comments)));
+
+            OnLoaded();
         }
 
         private IArchive SaveComments(IEnumerable<Comment> comments)
@@ -460,7 +465,7 @@ namespace VEdit.Editor
                     else
                     {
                         _output.Write($"Could not create link in node {outNode}: Input.Index={inIndex} and Output.Index={outIndex}",
-                            _cmdProvider.Create(() => JumpToNode(firstNode)),
+                            _cmdProvider.Create(() => Focus(firstNode)),
                             OutputType.Warning);
                     }
                 }

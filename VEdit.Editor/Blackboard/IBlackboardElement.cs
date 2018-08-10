@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace VEdit.Editor
 {
-    public interface IElement : ISelectable, IDraggable, INotifyPropertyChanged
+    public interface IBlackboardElement : ISelectable, IDraggable, INotifyPropertyChanged
     {
         IBlackboard Parent { get; }
 
@@ -17,9 +17,9 @@ namespace VEdit.Editor
         string Description { get; }
     }
 
-    public static class ElementExtensions
+    public static class BlackboardElementExtensions
     {
-        public static (double X, double Y, double Width, double Height) GetBoundingBox<T>(this IEnumerable<T> elements, double offset = 0) where T : IElement
+        public static (double X, double Y, double Width, double Height) GetBoundingBox<T>(this IEnumerable<T> elements, double offset = 0) where T : IBlackboardElement
         {
             double minX = double.MaxValue;
             double minY = double.MaxValue;
@@ -27,7 +27,7 @@ namespace VEdit.Editor
             double maxX = double.MinValue;
             double maxY = double.MinValue;
 
-            foreach (IElement elem in elements)
+            foreach (IBlackboardElement elem in elements)
             {
                 if(elem.X < minX)
                 {

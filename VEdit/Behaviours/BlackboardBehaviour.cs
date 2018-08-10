@@ -40,14 +40,7 @@ namespace VEdit
         {
             var center = GetRelativePosition(e);
 
-            if (e.Delta > 0)
-            {
-                Blackboard.ZoomIn(center.X, center.Y);
-            }
-            else
-            {
-                Blackboard.ZoomOut(center.X, center.Y);
-            }
+            Blackboard.Zoom(e.Delta > 0 ? ZoomDirection.In : ZoomDirection.Out, center.X, center.Y);
         }
 
         private void OnLayoutUpdated(object sender, System.EventArgs e)

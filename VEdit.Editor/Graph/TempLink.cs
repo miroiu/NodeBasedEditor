@@ -2,7 +2,7 @@
 {
     public class TempLink : BlackboardElement
     {
-        public TempLink(IBlackboard blackboard, string color, double x = 0, double y = 0) : base(blackboard)
+        public TempLink(Blackboard blackboard, string color, double x = 0, double y = 0) : base(blackboard, blackboard.ServiceProvider)
         {
             Color = color;
             StartX = x;

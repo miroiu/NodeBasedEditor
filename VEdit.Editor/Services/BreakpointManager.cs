@@ -40,7 +40,7 @@ namespace VEdit.Editor
                         var graphProvider = _provider.Get<IGraphProvider>();
 
                         graphProvider.OpenInEditor(node.Graph.Id);
-                        node.Graph.JumpToNode(node);
+                        node.Graph.Focus(node);
                     }));
 
                     Breakpoints.Add(brk);

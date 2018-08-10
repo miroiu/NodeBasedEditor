@@ -4,7 +4,7 @@ namespace VEdit.Editor
 {
     public delegate void CloseEventHandler();
 
-    public interface IActionList : IElement
+    public interface IActionList : IBlackboardElement
     {
         event CloseEventHandler CloseEvent;
         void Close();

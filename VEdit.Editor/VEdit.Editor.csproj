@@ -64,7 +64,7 @@
     <Compile Include="Graph\FunctionGraph.cs" />
     <Compile Include="Graph\Graph.cs" />
     <Compile Include="Blackboard\IBlackboard.cs" />
-    <Compile Include="Blackboard\IElement.cs" />
+    <Compile Include="Blackboard\IBlackboardElement.cs" />
     <Compile Include="Blackboard\IDraggable.cs" />
     <Compile Include="Nodes\Unregistered\ExitNode.cs" />
     <Compile Include="Nodes\PluginNode.cs" />

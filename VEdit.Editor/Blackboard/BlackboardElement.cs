@@ -3,7 +3,7 @@ using VEdit.Common;
 
 namespace VEdit.Editor
 {
-    public abstract class BlackboardElement : BaseViewModel, IElement, ISaveLoad
+    public abstract class BlackboardElement : BaseViewModel, IBlackboardElement
     {
         public IBlackboard Parent { get; }
 
@@ -56,51 +56,46 @@ namespace VEdit.Editor
             set => SetProperty(ref _description, value);
         }
 
-        public BlackboardElement(IBlackboard blackboard) : base(blackboard.ServiceProvider)
+        public BlackboardElement(IBlackboard blackboard, Common.IServiceProvider serviceProvider) : base(serviceProvider)
         {
             Parent = blackboard;
         }
+
+        #region Drag Handlers
+
+        public bool IsDragging { get; set; }
+        public event Action Dragged;
+
+        private readonly int _gridSize = 20;
 
         public virtual void Drag(double x, double y)
         {
             X += x;
             Y += y;
-
-            OnDragged();
         }
 
-        public event Action Dragged;
-        public event Action Loaded;
+        private double SnapToGrid(double value)
+        {
+            return Math.Round(value / _gridSize) * _gridSize;
+        }
+
+        public void StartDrag(double x, double y)
+        {
+            IsDragging = true;
+        }
+
+        public void EndDrag(double x, double y)
+        {
+            X = SnapToGrid(X);
+            Y = SnapToGrid(Y);
+
+            IsDragging = false;
+
+            // OnDragged()
+        }
 
         protected void OnDragged() => Dragged?.Invoke();
 
-        public virtual void Save(IArchive archive)
-        {
-            archive.Write(nameof(X), X);
-            archive.Write(nameof(Y), Y);
-
-            archive.Write(nameof(Width), Width);
-            archive.Write(nameof(Height), Height);
-
-            archive.Write(nameof(Name), Name);
-            archive.Write(nameof(Description), Description);
-        }
-
-        public virtual void Load(IArchive archive)
-        {
-            X = archive.Read<double>(nameof(X));
-            Y = archive.Read<double>(nameof(Y));
-
-            Width = archive.Read<double>(nameof(Width));
-            Height = archive.Read<double>(nameof(Height));
-
-            Name = archive.Read<string>(nameof(Name));
-            Description = archive.Read<string>(nameof(Description));
-        }
-
-        protected void OnLoaded()
-        {
-            Loaded?.Invoke();
-        }
+        #endregion
     }
 }
