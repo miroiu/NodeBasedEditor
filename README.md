@@ -37,6 +37,9 @@
  # How to build
  In Visual Studio navigate to Build > Rebuild Solution and you're ready to go. 
  
+ # How to execute a graph
+ https://github.com/miroiu/NodeBasedEditor/issues/1
+ 
  # Contributing
  As I said earlier, the project will be rewritten from scratch so i do not recommend spending time reading and writing code in its current state. Also there's little to no documentation.
  **But** if you think a project like this one has potential and you want to get involved on designing the new editor from scratch or have a better idea of what problems a node based editor can solve, don't hesitate to contact me at <miroiu.emanuel@yahoo.com> or join our discord community <https://discord.gg/yrQCpxf>.
