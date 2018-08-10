@@ -62,7 +62,7 @@ namespace VEdit.Editor
                 var newX = value - _x;
                 if (SetProperty(ref _x, value))
                 {
-                    foreach(var element in Elements)
+                    foreach (var element in Elements)
                     {
                         element.Drag(newX, 0);
                     }
@@ -71,9 +71,6 @@ namespace VEdit.Editor
         }
 
         private double _y;
-
-        public event Action Loaded;
-
         public double Y
         {
             get => _y;
@@ -89,6 +86,43 @@ namespace VEdit.Editor
                 }
             }
         }
+
+        private readonly double _maxZoom = 2;
+        private readonly double _minZoom = 0.2;
+        private readonly double _zoomStep = 0.2;
+
+        private double _zoom = 1;
+        public double Zoom
+        {
+            get => _zoom;
+            private set
+            {
+                if (value <= _maxZoom && value >= _minZoom)
+                {
+                    SetProperty(ref _zoom, value);
+                }
+            }
+        }
+
+        private double _zoomCenterX;
+        public double ZoomCenterX
+        {
+            get => _zoomCenterX;
+            set => SetProperty(ref _zoomCenterX, value);
+        }
+
+        // CenterX and CenterY are the mouse coordinates. Should be used to zoom in that point.
+        public void ZoomIn(double centerX, double centerY)
+        {
+            Zoom += _zoomStep;
+        }
+
+        public void ZoomOut(double centerX, double centerY)
+        {
+            Zoom -= _zoomStep;
+        }
+
+        public event Action Loaded;
 
         public void AddElement(IElement element)
         {

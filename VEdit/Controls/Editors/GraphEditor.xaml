@@ -20,6 +20,11 @@
             <Button Command="{Binding PasteCommand}" Content="Paste" />
         </ToolBar>
         <local:BlackboardView DataContext="{Binding Graph}" Grid.Row="1">
+            <local:BlackboardView.LayoutTransform>
+                <ScaleTransform
+                        ScaleX="{Binding Zoom}"
+                        ScaleY="{Binding Zoom}" />
+            </local:BlackboardView.LayoutTransform>
             <i:Interaction.Behaviors>
                 <root:BlackboardBehaviour Blackboard="{Binding}" />
             </i:Interaction.Behaviors>

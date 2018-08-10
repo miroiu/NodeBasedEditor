@@ -26,6 +26,7 @@ namespace VEdit
 
             AssociatedObject.MouseLeftButtonDown += OnMouseLeftButtonDown;
             AssociatedObject.MouseLeftButtonUp += OnMouseLeftButtonUp;
+            AssociatedObject.MouseWheel += OnMouseWheel;
 
             AssociatedObject.MouseRightButtonDown += OnMouseRightButtonDown;
             AssociatedObject.MouseRightButtonUp += OnMouseRightButtonUp; ;
@@ -33,6 +34,20 @@ namespace VEdit
             AssociatedObject.MouseMove += OnMouseMove;
 
             AssociatedObject.LayoutUpdated += OnLayoutUpdated;
+        }
+
+        private void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var center = GetRelativePosition(e);
+
+            if (e.Delta > 0)
+            {
+                Blackboard.ZoomIn(center.X, center.Y);
+            }
+            else
+            {
+                Blackboard.ZoomOut(center.X, center.Y);
+            }
         }
 
         private void OnLayoutUpdated(object sender, System.EventArgs e)
