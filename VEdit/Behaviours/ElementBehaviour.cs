@@ -11,9 +11,9 @@ namespace VEdit
     {
         public UIState<ElementBehaviour> State { get; set; }
 
-        public IBlackboardElement Element
+        public BlackboardElement Element
         {
-            get => (IBlackboardElement)GetValue(ElementProperty);
+            get => (BlackboardElement)GetValue(ElementProperty);
             set => SetValue(ElementProperty, value);
         }
         
@@ -24,7 +24,7 @@ namespace VEdit
         }
 
         public static readonly DependencyProperty ElementProperty = DependencyProperty.Register(nameof(Element),
-            typeof(IBlackboardElement), typeof(ElementBehaviour), new PropertyMetadata(null));
+            typeof(BlackboardElement), typeof(ElementBehaviour), new PropertyMetadata(null));
 
         public static readonly DependencyProperty UpdateSizeProperty = DependencyProperty.Register(nameof(UpdateSize),
             typeof(bool), typeof(ElementBehaviour), new PropertyMetadata(true));

@@ -5,7 +5,9 @@ using VEdit.Editor.ActionsList;
 
 namespace VEdit.Editor
 {
-    public class ActionList : BlackboardElement, IActionList
+    public delegate void CloseEventHandler();
+
+    public class ActionList : BlackboardElement
     {
         private string _filterString;
 

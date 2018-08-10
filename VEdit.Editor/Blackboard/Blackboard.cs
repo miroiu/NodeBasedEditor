@@ -3,20 +3,26 @@ using VEdit.Common;
 
 namespace VEdit.Editor
 {
-    public abstract class Blackboard : BaseViewModel, IBlackboard
+    public enum ZoomType
     {
-        public ReadOnlyObservableCollection<IBlackboardElement> Elements { get; }
-        public ISelectionService<IBlackboardElement> SelectionService { get; }
+        In,
+        Out
+    }
 
-        private ObservableCollection<IBlackboardElement> _elements;
+    public abstract class Blackboard : BaseViewModel
+    {
+        public ReadOnlyObservableCollection<BlackboardElement> Elements { get; }
+        public ISelectionService<BlackboardElement> SelectionService { get; }
+
+        private ObservableCollection<BlackboardElement> _elements;
 
         public Blackboard(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            SelectionService = serviceProvider.Get<ISelectionService<IBlackboardElement>>();
+            SelectionService = serviceProvider.Get<ISelectionService<BlackboardElement>>();
             var cmdProvider = serviceProvider.Get<ICommandProvider>();
 
-            _elements = new ObservableCollection<IBlackboardElement>();
-            Elements = new ReadOnlyObservableCollection<IBlackboardElement>(_elements);
+            _elements = new ObservableCollection<BlackboardElement>();
+            Elements = new ReadOnlyObservableCollection<BlackboardElement>(_elements);
         }
 
         private string _name;
@@ -72,14 +78,14 @@ namespace VEdit.Editor
             }
         }
 
-        public void Focus(IBlackboardElement element)
+        public void Focus(BlackboardElement element)
         {
             Focus(element.X + element.Width / 2, element.Y + element.Height / 2);
         }
 
-        public void Zoom(ZoomDirection dir, double centerX, double centerY)
+        public void Zoom(ZoomType dir, double centerX, double centerY)
         {
-            ZoomFactor += dir == ZoomDirection.In ? _zoomStep : -_zoomStep;
+            ZoomFactor += dir == ZoomType.In ? _zoomStep : -_zoomStep;
         }
 
         private void Focus(double x, double y)
@@ -90,12 +96,12 @@ namespace VEdit.Editor
             Pan(centerX - x, centerY - y);
         }
         
-        public void AddElement(IBlackboardElement element)
+        public void AddElement(BlackboardElement element)
         {
             _elements.Add(element);
         }
 
-        public void RemoveElement(IBlackboardElement element)
+        public void RemoveElement(BlackboardElement element)
         {
             _elements.Remove(element);
         }

@@ -38,7 +38,7 @@ namespace VEdit.Editor
 
         public IEnumerable<Node> SelectedNodes => Nodes.Where(n => n.IsSelected).Cast<Node>();
 
-        public IActionList NodeList { get; }
+        public ActionList NodeList { get; }
         // Instance id used for serialization
         public Guid Id { get; protected set; }
         public Guid ProjectId { get; set; }

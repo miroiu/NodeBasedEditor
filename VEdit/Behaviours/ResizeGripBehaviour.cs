@@ -9,14 +9,14 @@ namespace VEdit
 {
     public class ResizeGripBehaviour : Behavior<Thumb>
     {
-        public IBlackboardElement Element
+        public BlackboardElement Element
         {
-            get => (IBlackboardElement)GetValue(ElementProperty);
+            get => (BlackboardElement)GetValue(ElementProperty);
             set => SetValue(ElementProperty, value);
         }
 
         public static readonly DependencyProperty ElementProperty = DependencyProperty.Register(nameof(Element),
-            typeof(IBlackboardElement), typeof(ResizeGripBehaviour), new PropertyMetadata(null));
+            typeof(BlackboardElement), typeof(ResizeGripBehaviour), new PropertyMetadata(null));
 
         private Cursor _cursor;
 
@@ -46,7 +46,7 @@ namespace VEdit
             if (Element == null)
             {
                 var parent = AssociatedObject.FindParentOfType<UserControl>();
-                Element = parent.DataContext as IBlackboardElement;
+                Element = parent.DataContext as BlackboardElement;
             }
         }
 

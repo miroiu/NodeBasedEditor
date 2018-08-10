@@ -58,7 +58,7 @@ namespace VEdit.Editor
             }
         }
 
-        private IEnumerable<IBlackboardElement> GetChildren()
+        private IEnumerable<BlackboardElement> GetChildren()
         {
             return Parent.Elements.GetElementsInBounds(X, Y, Width, Height).Where(e => !(e is Comment));
         }

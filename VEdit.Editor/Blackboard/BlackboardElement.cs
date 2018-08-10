@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using VEdit.Common;
 
 namespace VEdit.Editor
 {
-    public abstract class BlackboardElement : BaseViewModel, IBlackboardElement
+    public abstract class BlackboardElement : BaseViewModel, ISelectable, IDraggable
     {
-        public IBlackboard Parent { get; }
+        public Blackboard Parent { get; }
 
         private string _name;
         public string Name
@@ -56,7 +57,7 @@ namespace VEdit.Editor
             set => SetProperty(ref _description, value);
         }
 
-        public BlackboardElement(IBlackboard blackboard, Common.IServiceProvider serviceProvider) : base(serviceProvider)
+        public BlackboardElement(Blackboard blackboard, Common.IServiceProvider serviceProvider) : base(serviceProvider)
         {
             Parent = blackboard;
         }
@@ -97,5 +98,44 @@ namespace VEdit.Editor
         protected void OnDragged() => Dragged?.Invoke();
 
         #endregion
+    }
+
+    public static class BlackboardElementExtensions
+    {
+        public static (double X, double Y, double Width, double Height) GetBoundingBox<T>(this IEnumerable<T> elements, double offset = 0) where T : BlackboardElement
+        {
+            double minX = double.MaxValue;
+            double minY = double.MaxValue;
+
+            double maxX = double.MinValue;
+            double maxY = double.MinValue;
+
+            foreach (BlackboardElement elem in elements)
+            {
+                if (elem.X < minX)
+                {
+                    minX = elem.X;
+                }
+
+                if (elem.Y < minY)
+                {
+                    minY = elem.Y;
+                }
+
+                var sizeX = elem.X + elem.Width;
+                if (sizeX > maxX)
+                {
+                    maxX = sizeX;
+                }
+
+                var sizeY = elem.Y + elem.Height;
+                if (sizeY > maxY)
+                {
+                    maxY = sizeY;
+                }
+            }
+
+            return (minX - offset, minY - offset, maxX - minX + offset * 2, maxY - minY + offset * 2);
+        }
     }
 }

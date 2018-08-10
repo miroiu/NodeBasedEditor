@@ -5,7 +5,7 @@ namespace VEdit.Blackboard
 {
     public class ShowNodeListState : BlackboardState
     {
-        private IActionList _nodeList;
+        private ActionList _nodeList;
 
         public ShowNodeListState(BlackboardBehaviour blackboard) : base(blackboard)
         {

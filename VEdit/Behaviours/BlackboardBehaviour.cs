@@ -10,13 +10,13 @@ namespace VEdit
     public class BlackboardBehaviour : Behavior<FrameworkElement>
     {
         public static DependencyProperty BlackboardProperty = DependencyProperty.Register(nameof(Blackboard),
-            typeof(IBlackboard), typeof(BlackboardBehaviour), new PropertyMetadata(null));
+            typeof(Editor.Blackboard), typeof(BlackboardBehaviour), new PropertyMetadata(null));
 
         public UIState<BlackboardBehaviour> State { get; set; }
 
-        public IBlackboard Blackboard
+        public Editor.Blackboard Blackboard
         {
-            get => (IBlackboard)GetValue(BlackboardProperty);
+            get => (Editor.Blackboard)GetValue(BlackboardProperty);
             set => SetValue(BlackboardProperty, value);
         }
 
@@ -40,7 +40,7 @@ namespace VEdit
         {
             var center = GetRelativePosition(e);
 
-            Blackboard.Zoom(e.Delta > 0 ? ZoomDirection.In : ZoomDirection.Out, center.X, center.Y);
+            Blackboard.Zoom(e.Delta > 0 ? ZoomType.In : ZoomType.Out, center.X, center.Y);
         }
 
         private void OnLayoutUpdated(object sender, System.EventArgs e)

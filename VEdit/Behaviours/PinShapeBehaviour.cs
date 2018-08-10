@@ -12,7 +12,7 @@ namespace VEdit
     {
         private NodeView _parent;
         private Point _relativeLocation;
-        private IBlackboardElement _element;
+        private BlackboardElement _element;
 
         public double X
         {
@@ -36,7 +36,7 @@ namespace VEdit
         {
             _parent = AssociatedObject.FindParentOfType<NodeView>();
 
-            _element = _parent.DataContext as IBlackboardElement;
+            _element = _parent.DataContext as BlackboardElement;
             _element.PropertyChanged += ParentPositionChanged;
             AssociatedObject.LayoutUpdated += OnLayoutUpdated;
 
@@ -67,7 +67,7 @@ namespace VEdit
 
         private void ParentPositionChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(IBlackboardElement.X) || e.PropertyName == nameof(IBlackboardElement.Y))
+            if (e.PropertyName == nameof(BlackboardElement.X) || e.PropertyName == nameof(BlackboardElement.Y))
             {
                 CalculateRelativePosition();
             }

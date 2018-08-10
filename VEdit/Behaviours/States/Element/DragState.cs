@@ -6,7 +6,7 @@ namespace VEdit.Element
     public class DragState : ElementState
     {
         private Point _clickOrigin;
-        private readonly ISelectionService<IBlackboardElement> _selection;
+        private readonly ISelectionService<BlackboardElement> _selection;
 
         public DragState(ElementBehaviour element) : base(element)
         {
