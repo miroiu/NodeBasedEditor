@@ -18,7 +18,7 @@ namespace VEdit
         {
             Loaded += OnLoaded;
 
-            IKernel serviceProvider = new StandardKernel();
+            IKernel serviceProvider = new StandardKernel(new UIModule());
             _logger = serviceProvider.Get<ILogger>();
             _viewModel = serviceProvider.Get<EditorViewModel>();
 

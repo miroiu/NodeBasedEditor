@@ -1,6 +1,7 @@
-﻿using VEdit.Common;
+﻿using Ninject;
+using VEdit.Common;
 
-namespace Ninject.Extensions.VEdit
+namespace VEdit
 {
     public class ServiceProvider : IServiceProvider
     {

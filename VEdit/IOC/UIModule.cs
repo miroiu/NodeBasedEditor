@@ -1,11 +1,10 @@
 ﻿using Ninject.Modules;
-using VEdit;
 using VEdit.Common;
 using VEdit.Dialogs;
 using VEdit.Editor;
 using VEdit.UI;
 
-namespace Ninject.Extensions.VEdit
+namespace VEdit
 {
     public class UIModule : NinjectModule
     {

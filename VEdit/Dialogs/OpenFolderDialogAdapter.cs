@@ -1,16 +1,16 @@
-﻿using System.IO;
-using System.Windows.Forms;
+﻿using Ookii.Dialogs.Wpf;
+using System.IO;
 using VEdit.UI;
 
 namespace VEdit
 {
     public class OpenFolderDialogAdapter : IOpenFolderDialog
     {
-        private FolderBrowserDialog _dialog;
+        private readonly VistaFolderBrowserDialog _dialog;
 
         public OpenFolderDialogAdapter()
         {
-            _dialog = new FolderBrowserDialog()
+            _dialog = new VistaFolderBrowserDialog()
             {
                 ShowNewFolderButton = true
             };
@@ -24,6 +24,6 @@ namespace VEdit
 
         public string FolderName => Path.GetFileName(_dialog.SelectedPath);
 
-        public bool Show() => _dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK;
+        public bool Show() => _dialog.ShowDialog() ?? false;
     }
 }

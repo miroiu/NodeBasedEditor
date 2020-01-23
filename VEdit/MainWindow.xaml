@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VEdit"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:ui="clr-namespace:VEdit.UI;assembly=VEdit.UI"
         xmlns:controls="clr-namespace:VEdit.Controls"
         xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
