@@ -14,12 +14,19 @@ namespace VEdit.Editor
         public ReadOnlyObservableCollection<BlackboardElement> Elements { get; }
         public ISelectionService<BlackboardElement> SelectionService { get; }
 
-        private ObservableCollection<BlackboardElement> _elements;
+        private readonly ObservableCollection<BlackboardElement> _elements;
+
+        public Blackboard(ISelectionService<BlackboardElement> selectionService)
+        {
+            _elements = new ObservableCollection<BlackboardElement>();
+            Elements = new ReadOnlyObservableCollection<BlackboardElement>(_elements);
+
+            SelectionService = selectionService;
+        }
 
         public Blackboard(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             SelectionService = serviceProvider.Get<ISelectionService<BlackboardElement>>();
-            var cmdProvider = serviceProvider.Get<ICommandProvider>();
 
             _elements = new ObservableCollection<BlackboardElement>();
             Elements = new ReadOnlyObservableCollection<BlackboardElement>(_elements);

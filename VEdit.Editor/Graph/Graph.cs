@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using VEdit.Common;
+using VEdit.Core;
 using VEdit.Execution;
 
 namespace VEdit.Editor
@@ -44,8 +45,18 @@ namespace VEdit.Editor
         public Guid ProjectId { get; set; }
         public Guid FileId { get; set; }
 
-        private IOutputManager _output;
-        private ICommandProvider _cmdProvider;
+        private readonly IOutputManager _output;
+        private readonly ICommandProvider _cmdProvider;
+
+        public Graph(GraphDto graph, ISelectionService<BlackboardElement> selectionService, ICommandProvider commandProvider, IActionsDatabase actionsDatabase,
+            IOutputManager outputManager) : base(selectionService)
+        {
+            Id = Guid.NewGuid();
+            NodeList = new ActionList(this, commandProvider, actionsDatabase);
+
+            _cmdProvider = commandProvider;
+            _output = outputManager;
+        }
 
         public Graph(Common.IServiceProvider serviceProvider) : base(serviceProvider)
         {

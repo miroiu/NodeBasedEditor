@@ -57,6 +57,11 @@ namespace VEdit.Editor
             set => SetProperty(ref _description, value);
         }
 
+        public BlackboardElement(Blackboard blackboard)
+        {
+
+        }
+
         public BlackboardElement(Blackboard blackboard, Common.IServiceProvider serviceProvider) : base(serviceProvider)
         {
             Parent = blackboard;

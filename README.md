@@ -1,6 +1,8 @@
  # **Disclaimer** 
- This project is not fully functional and will be completely redesigned and rewritten.
- This project is not intended for personal use as it is made for learning purposes.
+ This project is not intended for personal use as it was made for learning purposes.
+ It was written more than two years ago when I started learning WPF. 
+ The code is a mess.
+ I came back to this project because it's a good candidate for refactoring and this is something I want to understand better.
  
  # Introduction
  
@@ -8,7 +10,7 @@
  It features an infinite canvas where you can place nodes and connect their input and output pins to create logically connected sequences of actions.
  It pretty much functions like a procedural programming language, where you chain function calls starting from an entry point. Each function has its own entry point (input) and exit point (output) and can call other functions and declare and use variables to store temporary data.
  
- The UI code is written in WPF using the MVVM pattern. The theme and window and dialog controls come from the MahApps library. 
+ The UI code is written in WPF using the MVVM pattern. The theme and window and dialog controls comes from the MahApps library. 
  
  ![](https://i.imgur.com/UAcIlWr.png)
  
@@ -34,13 +36,7 @@
  Nodes can be created using the Actions Menu made visible by clicking the right mouse button. 
  Most of the elements show a context menu when you right click on them.
  
- # How to build
- In Visual Studio navigate to Build > Rebuild Solution and you're ready to go. 
- 
  # How to execute a graph
  https://github.com/miroiu/NodeBasedEditor/issues/1
  
- # Contributing
- As I said earlier, the project will be rewritten from scratch so i do not recommend spending time reading and writing code in its current state. Also there's little to no documentation.
- **But** if you think a project like this one has potential and you want to get involved on designing the new editor from scratch or have a better idea of what problems a node based editor can solve, don't hesitate to contact me at <miroiu.emanuel@yahoo.com> or join our discord community <https://discord.gg/yrQCpxf>.
  

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:VEdit.Controls"
              xmlns:root="clr-namespace:VEdit"
              xmlns:actionsList="clr-namespace:VEdit.Editor.ActionsList;assembly=VEdit.Editor"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Border Style="{StaticResource NodeListBorderStyle}">

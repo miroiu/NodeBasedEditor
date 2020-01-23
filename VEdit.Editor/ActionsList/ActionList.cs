@@ -18,13 +18,25 @@ namespace VEdit.Editor
             set => SetProperty(ref _root, value);
         }
 
-        private IServiceProvider _serviceProvider;
         private IActionsDatabase _actionsDatabase;
         private Graph _graph;
 
+        public ActionList(Graph graph, ICommandProvider commandProvider, IActionsDatabase actionsDatabase) : base(graph)
+        {
+            _graph = graph;
+            _graph.Loaded += OnGraphLoaded;
+            Name = "Available Actions";
+
+            _actionsDatabase = actionsDatabase;
+            SpawnNodeCommand = commandProvider.Create<System.Guid>(SpawnNode);
+            CloseCommand = commandProvider.Create(Close);
+
+            _actionsDatabase.DatabaseChanged += OnDatabaseChanged;
+            Root = CreateActionList(_actionsDatabase.GetAvailable(_graph.ProjectId));
+        }
+
         public ActionList(Graph graph, IServiceProvider serviceProvider) : base(graph, serviceProvider)
         {
-            _serviceProvider = serviceProvider;
             _graph = graph;
             _graph.Loaded += OnGraphLoaded;
             Name = "Available Actions";

@@ -27,6 +27,11 @@ namespace VEdit.Common
 
     public class BaseViewModel : ObservableObject
     {
+        public BaseViewModel()
+        {
+
+        }
+
         public IServiceProvider ServiceProvider { get; }
 
         public BaseViewModel(IServiceProvider serviceProvider)

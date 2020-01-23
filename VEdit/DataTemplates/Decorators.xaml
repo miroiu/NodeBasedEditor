@@ -4,7 +4,7 @@
                     xmlns:main="clr-namespace:VEdit"
                     xmlns:editor="clr-namespace:VEdit.Editor;assembly=VEdit.Editor"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <DataTemplate x:Key="EmptyDataTemplate">
     </DataTemplate>
