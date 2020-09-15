@@ -3,6 +3,8 @@
  All I can say is that the code is a mess and it's impossible to refactor without re-writing the whole application.
  So take this into consideration before wasting your time reading the code.
  
+ **UPDATE: If you'd like to create your own node based editor, have a look at** [Nodify](https://github.com/miroiu/nodify)
+ 
  ## Introduction
  
  Visual Programming Editor is a node based editor that tries to mimic the way you write code in Unreal Engine's 4 Blueprints editor.
